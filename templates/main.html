@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
-<head>
-    <title>To-Do List</title>
-</head>
 
-{% block content %}
-    <div>
-        <header>To-Do List</header>
-    </div>
+{% block task_creator %}
+    {% if task_text %}
+        {{ task_text }}
+    {% endif %}
+    <form method="post" class="container">
+        <label for="task">
+            <input name="task" type="text" placeholder="Введите текст задачи...">
+        </label>
+        <button type="submit" style="border-radius: 50%; background-color: coral">+</button>
+    </form>
 {% endblock %}
-</html>
