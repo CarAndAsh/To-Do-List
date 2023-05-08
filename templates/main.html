@@ -1,14 +1,28 @@
 {% extends 'base.html' %}
+{% from 'form_gen.html' import line_form_gen %}
 
 
 {% block task_creator %}
-    {% if task_text %}
-        {{ task_text }}
-    {% endif %}
-    <form method="post" class="container">
-        <label for="task">
-            <input name="task" type="text" placeholder="Введите текст задачи...">
-        </label>
-        <button type="submit" style="border-radius: 50%; background-color: coral">+</button>
+    {{ super() }}
+    <form action="" name="task" method="post" class="container">
+
+        {{ task_creator.csrf_token }}
+        <div class="center-block">
+            {{ task_creator.task_text.label }} {{ task_creator.task_text }} {{ task_creator.submit }}
+        </div>
+        {% for error in (task_creator.task_text.errors, task_creator.submit.errors) %}
+            {% if error %}
+                <div>{{ error }}</div>
+            {% endif %}
+        {% endfor %}
+
     </form>
 {% endblock %}
+{% block content %}
+    {{ super() }}
+    <form action="" method="post">
+        {{ line_form_gen(task) }}
+    </form>
+{% endblock %}
+
+
