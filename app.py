@@ -7,27 +7,29 @@ from forms import Task, TaskList, TLGroup, TaskCreator, LoginForm, RegistrationF
 # TODO list looks like name on page-name in representation-parameters-view of tasks
 # TODO task looks like check-text-edit-delete-catch
 # TODO m.b.realize steps in task looks like task
-# work time: 10 h
+# work time: 11 h
 
 app = Flask(__name__)
 b_app = Bootstrap(app)
 app.config['SECRET_KEY'] = 'qwertyfasdqwerty!@#$654654'
 
+task_list = []
+
 
 # @app.route('/<username>')
 @app.route('/', methods=['GET', 'POST'])
 def main_page(username=None):
-    task_text = ''
     context = {'title': 'To-Do List',
-               'task': Task(),
                'task_creator': TaskCreator(),
 
-               # 'tasklist': TaskList(),
+               'tasklist': task_list,
                # 'tlgroup': TLGroup(),
                }
     if request.method == 'POST':
-        req = request.get_data()
-        print(req)
+        task_text = context['task_creator'].task_text.data
+        task = Task()
+        task.add_task(task_text)
+        context['tasklist'].append(task)
 
     return render_template('main.html', **context)
 

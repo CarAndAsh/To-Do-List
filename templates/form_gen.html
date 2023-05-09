@@ -1,7 +1,7 @@
 {% macro line_form_gen(obj) %}
     {{ obj.csrf_token }}
     <div>{% for field in obj if field.name != 'csrf_token' %}
-        {{ field.label() }} {{ field }}
+        {{ field.label }} {{ field }}
         {% for error in obj.errors %}
             {% if error %}
                 <div>{{ error }}</div>

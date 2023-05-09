@@ -16,12 +16,17 @@
             {% endif %}
         {% endfor %}
 
-    </form>
+    </form><br>
 {% endblock %}
 {% block content %}
     {{ super() }}
-    <form action="" method="post">
-        {{ line_form_gen(task) }}
+    <form action="" name="tasklist" method="post">
+        <div class="center-block">
+            {% for task in tasklist %}
+                {{ line_form_gen(task) }}<br>
+            {% endfor %}
+        </div>
+
     </form>
 {% endblock %}
 

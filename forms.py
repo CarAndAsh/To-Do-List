@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, BooleanField
+from wtforms import StringField, SubmitField, PasswordField, BooleanField, Label
 from wtforms.validators import InputRequired
+from itertools import count
 
 
 class TaskCreator(FlaskForm):
@@ -9,12 +10,22 @@ class TaskCreator(FlaskForm):
 
 
 class Task(FlaskForm):
+    task_text = ''
     check = BooleanField(label='')
-    task_label = StringField(label='')
+    task_label = Label(field_id=f'{count}', text=f'{task_text}')
+
+    def add_task(self, task_text):
+        self.task_label.text = task_text
+        print(self.task_label.text, self.task_label.field_id)
 
 
 class TaskList(FlaskForm):
-    pass
+    task_list = []
+
+    # task_group = SelectMultipleField(choices=task_list, label='tasks')
+
+    def add_task_to_list(self, task: Task):
+        self.task_list.append(task)
 
 
 class TLGroup:
