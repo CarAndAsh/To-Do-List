@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
-{% from 'form_gen.html' import line_form_gen %}
+{% from 'form_gen.html' import task_gen %}
 
 
 {% block task_creator %}
     {{ super() }}
-    <form action="" name="task" method="post" class="container">
+    <form action="" name="task" method="post"
+          class="container" style="width: calc(100% - 50px); display: inline-block; ">
 
         {{ task_creator.csrf_token }}
-        <div class="center-block">
-            {{ task_creator.task_text.label }} {{ task_creator.task_text }} {{ task_creator.submit }}
-        </div>
+        {{ task_creator.task_text.label }} {{ task_creator.task_text }} {{ task_creator.submit }}
         {% for error in (task_creator.task_text.errors, task_creator.submit.errors) %}
             {% if error %}
                 <div>{{ error }}</div>
@@ -20,13 +19,11 @@
 {% endblock %}
 {% block content %}
     {{ super() }}
-    <form action="" name="tasklist" method="post">
-        <div class="center-block">
-            {% for task in tasklist %}
-                {{ line_form_gen(task) }}<br>
-            {% endfor %}
-        </div>
-
+    <form action="" name="tasklist" method="post"
+          class="container">
+        {% for task in tasklist %}
+            {{ task_gen(task) }}<br>
+        {% endfor %}
     </form>
 {% endblock %}
 

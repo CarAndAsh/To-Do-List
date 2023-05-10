@@ -7,7 +7,7 @@ from forms import Task, TaskList, TLGroup, TaskCreator, LoginForm, RegistrationF
 # TODO list looks like name on page-name in representation-parameters-view of tasks
 # TODO task looks like check-text-edit-delete-catch
 # TODO m.b.realize steps in task looks like task
-# work time: 11 h
+# work time: 12 h
 
 app = Flask(__name__)
 b_app = Bootstrap(app)

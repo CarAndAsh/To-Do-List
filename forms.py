@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, Label
 from wtforms.validators import InputRequired
-from itertools import count
 
 
 class TaskCreator(FlaskForm):
@@ -11,12 +10,14 @@ class TaskCreator(FlaskForm):
 
 class Task(FlaskForm):
     task_text = ''
-    check = BooleanField(label='')
-    task_label = Label(field_id=f'{count}', text=f'{task_text}')
+    check = BooleanField(label=f'')
+    task = StringField(render_kw={'placeholder': f'{task_text}',
+                                  'state': 'disabled'})
+    edit_btn = SubmitField('edit')
+    del_btn = SubmitField('del')
 
     def add_task(self, task_text):
-        self.task_label.text = task_text
-        print(self.task_label.text, self.task_label.field_id)
+        self.task.render_kw['placeholder'] = task_text
 
 
 class TaskList(FlaskForm):
@@ -33,13 +34,13 @@ class TLGroup:
 
 
 class LoginForm(FlaskForm):
-    login = StringField()
-    password = PasswordField()
+    login = StringField(label='Логин :', validators=[InputRequired()])
+    password = PasswordField(label='Пароль :', validators=[InputRequired()])
     submit = SubmitField('Войти')
 
 
 class RegistrationForm(FlaskForm):
-    login = StringField()
-    new_password = PasswordField()
-    repeat_password = PasswordField()
+    login = StringField(label='Логин :', validators=[InputRequired()])
+    new_password = PasswordField(label='Пароль :', validators=[InputRequired()])
+    repeat_password = PasswordField(label='Повторите пароль :', validators=[InputRequired()])
     submit = SubmitField('Зарегистрироваться')
